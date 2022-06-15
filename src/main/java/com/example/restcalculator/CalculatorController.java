@@ -7,40 +7,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CalculatorController {
 
+    Calculator calculator = new Calculator();
+
     @RequestMapping("/sum")
     int sum(@RequestParam int a, @RequestParam int b){
-        return a + b;
+        return calculator.sum(a, b);
     }
 
     @RequestMapping("/mul")
-    int mul(@RequestParam int a, @RequestParam int b){ return a*b; }
+    int mul(@RequestParam int a, @RequestParam int b){ return calculator.mul(a, b); }
+
+    @RequestMapping("/div")
+    int div(@RequestParam int a, @RequestParam int b){ return calculator.div(a, b);}
 
     @RequestMapping("/quad")
-    int quad(@RequestParam int a){ return a*a; }
+    int quad(@RequestParam int a){ return calculator.quad(a); }
 
     @RequestMapping("/absolute")
-    int abs(@RequestParam int a){ if(a>0){return a;} else{return a*(-1);} }
+    int abs(@RequestParam int a){ return calculator.abs(a); }
 
     @RequestMapping("/exp")
-    double exp(@RequestParam double a, @RequestParam int b){
-        if(b>0){
-            return expCalc(a, b);
-        } else if(b<0){
-            return (1/expCalc(a, b));
-        } else {
-            return 1;
-        }
+    double exp(@RequestParam int a, @RequestParam int b){
+        return calculator.exp(a, b);
     }
 
-    double expCalc(double a, int b){
-        double val = 1;
-        int b_absolute = abs(b);
 
-        for(int i=0; i<b_absolute; i++){
-            val=val*a;
-        }
-
-        return val;
-    }
 
 }
